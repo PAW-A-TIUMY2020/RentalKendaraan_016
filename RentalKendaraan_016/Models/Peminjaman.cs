@@ -5,11 +5,11 @@ namespace RentalKendaraan_016.Models
 {
     public partial class Peminjaman
     {
-        public int IdPeminjaman { get; set; }
-        public DateTime? TglPeminjaman { get; set; }
-        public int? IdKendaraan { get; set; }
-        public int? IdCostumer { get; set; }
-        public int? IdJaminan { get; set; }
+        public int ID_Peminjaman { get; set; }
+        public DateTime? Tgl_Peminjaman { get; set; }
+        public int? ID_Kendaraan { get; set; }
+        public int? ID_Costumer { get; set; }
+        public int? ID_Jaminan { get; set; }
         public int? Biaya { get; set; }
     }
 }

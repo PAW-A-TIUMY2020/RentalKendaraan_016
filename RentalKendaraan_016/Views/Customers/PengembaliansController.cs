@@ -7,24 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RentalKendaraan_016.Models;
 
-namespace RentalKendaraan_016.Controllers
+namespace RentalKendaraan_016.Views.Customers
 {
-    public class CustomersController : Controller
+    public class PengembaliansController : Controller
     {
         private readonly RentalKendaraanContext _context;
 
-        public CustomersController(RentalKendaraanContext context)
+        public PengembaliansController(RentalKendaraanContext context)
         {
             _context = context;
         }
 
-        // GET: Customers
+        // GET: Pengembalians
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customer.ToListAsync());
+            return View(await _context.Pengembalian.ToListAsync());
         }
 
-        // GET: Customers/Details/5
+        // GET: Pengembalians/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.ID_Customer == id);
-            if (customer == null)
+            var pengembalian = await _context.Pengembalian
+                .FirstOrDefaultAsync(m => m.ID_Pengembalian == id);
+            if (pengembalian == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(pengembalian);
         }
 
-        // GET: Customers/Create
+        // GET: Pengembalians/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: Pengembalians/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCustomer,NamaCustomer,Nik,Alamat,NoHp,IdGender")] Customer customer)
+        public async Task<IActionResult> Create([Bind("IdPengembalian,TglPengembalian,IdPeminjaman,IdKondisi,Denda")] Pengembalian pengembalian)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                _context.Add(pengembalian);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(pengembalian);
         }
 
-        // GET: Customers/Edit/5
+        // GET: Pengembalians/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer.FindAsync(id);
-            if (customer == null)
+            var pengembalian = await _context.Pengembalian.FindAsync(id);
+            if (pengembalian == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(pengembalian);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Pengembalians/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,NamaCustomer,Nik,Alamat,NoHp,IdGender")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPengembalian,TglPengembalian,IdPeminjaman,IdKondisi,Denda")] Pengembalian pengembalian)
         {
-            if (id != customer.ID_Customer)
+            if (id != pengembalian.ID_Pengembalian)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace RentalKendaraan_016.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    _context.Update(pengembalian);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.ID_Customer))
+                    if (!PengembalianExists(pengembalian.ID_Pengembalian))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace RentalKendaraan_016.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(pengembalian);
         }
 
-        // GET: Customers/Delete/5
+        // GET: Pengembalians/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.ID_Customer == id);
-            if (customer == null)
+            var pengembalian = await _context.Pengembalian
+                .FirstOrDefaultAsync(m => m.ID_Pengembalian == id);
+            if (pengembalian == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(pengembalian);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Pengembalians/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
-            _context.Customer.Remove(customer);
+            var pengembalian = await _context.Pengembalian.FindAsync(id);
+            _context.Pengembalian.Remove(pengembalian);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool PengembalianExists(int id)
         {
-            return _context.Customer.Any(e => e.ID_Customer == id);
+            return _context.Pengembalian.Any(e => e.ID_Pengembalian == id);
         }
     }
 }

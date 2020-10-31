@@ -5,11 +5,11 @@ namespace RentalKendaraan_016.Models
 {
     public partial class Customer
     {
-        public int IdCustomer { get; set; }
-        public string NamaCustomer { get; set; }
-        public string Nik { get; set; }
+        public int ID_Customer { get; set; }
+        public string Nama_Customer { get; set; }
+        public string NIK { get; set; }
         public string Alamat { get; set; }
-        public string NoHp { get; set; }
-        public int? IdGender { get; set; }
+        public string No_Hp { get; set; }
+        public int? ID_Gender { get; set; }
     }
 }

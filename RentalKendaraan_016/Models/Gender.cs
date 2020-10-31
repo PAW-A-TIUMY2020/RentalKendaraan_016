@@ -5,7 +5,7 @@ namespace RentalKendaraan_016.Models
 {
     public partial class Gender
     {
-        public int IdGender { get; set; }
-        public string NamaGender { get; set; }
+        public int ID_Gender { get; set; }
+        public string Nama_Gender { get; set; }
     }
 }

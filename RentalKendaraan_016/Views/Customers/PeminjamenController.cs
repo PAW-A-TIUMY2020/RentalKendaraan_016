@@ -7,24 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RentalKendaraan_016.Models;
 
-namespace RentalKendaraan_016.Controllers
+namespace RentalKendaraan_016.Views.Customers
 {
-    public class CustomersController : Controller
+    public class PeminjamenController : Controller
     {
         private readonly RentalKendaraanContext _context;
 
-        public CustomersController(RentalKendaraanContext context)
+        public PeminjamenController(RentalKendaraanContext context)
         {
             _context = context;
         }
 
-        // GET: Customers
+        // GET: Peminjamen
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customer.ToListAsync());
+            return View(await _context.Peminjaman.ToListAsync());
         }
 
-        // GET: Customers/Details/5
+        // GET: Peminjamen/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.ID_Customer == id);
-            if (customer == null)
+            var peminjaman = await _context.Peminjaman
+                .FirstOrDefaultAsync(m => m.ID_Peminjaman == id);
+            if (peminjaman == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(peminjaman);
         }
 
-        // GET: Customers/Create
+        // GET: Peminjamen/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: Peminjamen/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCustomer,NamaCustomer,Nik,Alamat,NoHp,IdGender")] Customer customer)
+        public async Task<IActionResult> Create([Bind("IdPeminjaman,TglPeminjaman,IdKendaraan,IdCostumer,IdJaminan,Biaya")] Peminjaman peminjaman)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                _context.Add(peminjaman);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(peminjaman);
         }
 
-        // GET: Customers/Edit/5
+        // GET: Peminjamen/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer.FindAsync(id);
-            if (customer == null)
+            var peminjaman = await _context.Peminjaman.FindAsync(id);
+            if (peminjaman == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(peminjaman);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Peminjamen/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,NamaCustomer,Nik,Alamat,NoHp,IdGender")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPeminjaman,TglPeminjaman,IdKendaraan,IdCostumer,IdJaminan,Biaya")] Peminjaman peminjaman)
         {
-            if (id != customer.ID_Customer)
+            if (id != peminjaman.ID_Peminjaman)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace RentalKendaraan_016.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    _context.Update(peminjaman);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.ID_Customer))
+                    if (!PeminjamanExists(peminjaman.ID_Peminjaman))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace RentalKendaraan_016.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(peminjaman);
         }
 
-        // GET: Customers/Delete/5
+        // GET: Peminjamen/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.ID_Customer == id);
-            if (customer == null)
+            var peminjaman = await _context.Peminjaman
+                .FirstOrDefaultAsync(m => m.ID_Peminjaman == id);
+            if (peminjaman == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(peminjaman);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Peminjamen/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
-            _context.Customer.Remove(customer);
+            var peminjaman = await _context.Peminjaman.FindAsync(id);
+            _context.Peminjaman.Remove(peminjaman);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool PeminjamanExists(int id)
         {
-            return _context.Customer.Any(e => e.ID_Customer == id);
+            return _context.Peminjaman.Any(e => e.ID_Peminjaman == id);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace RentalKendaraan_016.Models
 {
     public partial class Jaminan
     {
-        public int IdJaminan { get; set; }
-        public string NamaJaminan { get; set; }
+        public int ID_Jaminan { get; set; }
+        public string Nama_Jaminan { get; set; }
     }
 }

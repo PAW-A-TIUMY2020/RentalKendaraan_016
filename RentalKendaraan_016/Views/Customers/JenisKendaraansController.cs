@@ -7,24 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RentalKendaraan_016.Models;
 
-namespace RentalKendaraan_016.Controllers
+namespace RentalKendaraan_016.Views.Customers
 {
-    public class CustomersController : Controller
+    public class JenisKendaraansController : Controller
     {
         private readonly RentalKendaraanContext _context;
 
-        public CustomersController(RentalKendaraanContext context)
+        public JenisKendaraansController(RentalKendaraanContext context)
         {
             _context = context;
         }
 
-        // GET: Customers
+        // GET: JenisKendaraans
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customer.ToListAsync());
+            return View(await _context.Jenis_Kendaraan.ToListAsync());
         }
 
-        // GET: Customers/Details/5
+        // GET: JenisKendaraans/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.ID_Customer == id);
-            if (customer == null)
+            var jenisKendaraan = await _context.Jenis_Kendaraan
+                .FirstOrDefaultAsync(m => m.ID_Jenis_Kendaraan == id);
+            if (jenisKendaraan == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(jenisKendaraan);
         }
 
-        // GET: Customers/Create
+        // GET: JenisKendaraans/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: JenisKendaraans/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCustomer,NamaCustomer,Nik,Alamat,NoHp,IdGender")] Customer customer)
+        public async Task<IActionResult> Create([Bind("IdJenisKendaraan,NamaJenisKendaraan")] JenisKendaraan jenisKendaraan)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                _context.Add(jenisKendaraan);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(jenisKendaraan);
         }
 
-        // GET: Customers/Edit/5
+        // GET: JenisKendaraans/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer.FindAsync(id);
-            if (customer == null)
+            var jenisKendaraan = await _context.Jenis_Kendaraan.FindAsync(id);
+            if (jenisKendaraan == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(jenisKendaraan);
         }
 
-        // POST: Customers/Edit/5
+        // POST: JenisKendaraans/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,NamaCustomer,Nik,Alamat,NoHp,IdGender")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("IdJenisKendaraan,NamaJenisKendaraan")] JenisKendaraan jenisKendaraan)
         {
-            if (id != customer.ID_Customer)
+            if (id != jenisKendaraan.ID_Jenis_Kendaraan)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace RentalKendaraan_016.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    _context.Update(jenisKendaraan);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.ID_Customer))
+                    if (!JenisKendaraanExists(jenisKendaraan.ID_Jenis_Kendaraan))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace RentalKendaraan_016.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(jenisKendaraan);
         }
 
-        // GET: Customers/Delete/5
+        // GET: JenisKendaraans/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace RentalKendaraan_016.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.ID_Customer == id);
-            if (customer == null)
+            var jenisKendaraan = await _context.Jenis_Kendaraan
+                .FirstOrDefaultAsync(m => m.ID_Jenis_Kendaraan == id);
+            if (jenisKendaraan == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(jenisKendaraan);
         }
 
-        // POST: Customers/Delete/5
+        // POST: JenisKendaraans/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
-            _context.Customer.Remove(customer);
+            var jenisKendaraan = await _context.Jenis_Kendaraan.FindAsync(id);
+            _context.Jenis_Kendaraan.Remove(jenisKendaraan);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool JenisKendaraanExists(int id)
         {
-            return _context.Customer.Any(e => e.ID_Customer == id);
+            return _context.Jenis_Kendaraan.Any(e => e.ID_Jenis_Kendaraan == id);
         }
     }
 }
